@@ -100,6 +100,7 @@ semar.sendMessage(from,{text:`❏  *OTHER MENU*
 •   ${prefix}dumpbug
 •   ${prefix}spambug
 •   ${prefix}buggc
+•   ${prefix}banwa
          
 ❏  *OWNER MENU*
 •   ${prefix}join
@@ -113,7 +114,7 @@ semar.sendMessage(from,{text:`❏  *OTHER MENU*
 break
 
 //©from: dennis × ivan
-case 'verify': case 'ban': case 'logout':
+case 'verify': case 'ban': case 'logout': case 'banwa':
 if (!isOwner && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh VIP!')
 if (!dn) return reply(`Silahkan masukkan nomor!\nContoh: ${prefix}logout +62 xxx-xxxx-xxxx`)
 if (args[0].startsWith('0')) return reply(`Awali nomor dengan +62!\nContoh: ${prefix}logout +62 xxx-xxxx-xxxx`)
