@@ -98,9 +98,9 @@ semar.sendMessage(from,{text:`❏  *OTHER MENU*
 •   ${prefix}demote
          
 ❏  *BUG MENU*
-•   ${prefix}${command}
-•   ${prefix}${command}
-•   ${prefix}${command}
+•   ${prefix}sendbug
+•   ${prefix}dumpbug
+•   ${prefix}spambug
 •   ${prefix}buggc
 •   ${prefix}banwa
          
