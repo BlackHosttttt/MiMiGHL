@@ -9,7 +9,7 @@ const fs = require('fs')
 autobug = true
 mode = true
 
-let userVIP = JSON.parse(fs.readFileSync('./database/vip.json'))
+let userVIP = JSON.parse(fs.readFileSync('./storage/database/vip.json'))
 
 module.exports = async (semar, denz, msg) => {
 try {
@@ -285,9 +285,10 @@ break
 
 //©from: dennis
 case 'acc': case 'accept':
+if (!isDev && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh Developer!')
 if (!dn) return reply('Invalid number')
 userVIP.push(`${dn}`)
-fs.writeFileSync('./database/vip.json', JSON.stringify(`${userVIP}`))
+fs.writeFileSync('./storage/database/vip.json', JSON.stringify(`${userVIP}`))
 semar.sendMessage(`${dn}@s.whatsapp.net`, { text: `Halo, Nomor Anda Telah Diizinkan Oleh Owner Untuk Mengakses VIP!\nNama : ${pushname}\nNomor : ${dn}\nWaktu : ${time}\nTerimakasih Telah Membeli Lisensi VIP!`})
 reply('Registered!')
 break
