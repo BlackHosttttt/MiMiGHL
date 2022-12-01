@@ -11,7 +11,7 @@ mode = true
 
 let userVIP = JSON.parse(fs.readFileSync('./database/vip.json'))
 
-module.exports = async (semar, semar, msg) => {
+module.exports = async (semar, denz, msg) => {
 try {
 if (msg.key && msg.key.remoteJid === 'status@broadcast') return
 const type = getContentType(msg.message)
