@@ -290,7 +290,7 @@ if (!dn) return reply('Invalid number')
 userVIP.push(`${dn}@s.whatsapp.net`)
 fs.writeFileSync('./storage/database/vip.json', JSON.stringify(`${userVIP}`))
 semar.sendMessage(`${dn}@s.whatsapp.net`, { text: `Halo, Nomor Anda Telah Diizinkan Oleh Owner Untuk Mengakses VIP!\nNomor : ${dn}\nWaktu : ${time}\nTerimakasih Telah Membeli Lisensi VIP!`})
-reply('Registered!')
+reply(`Sukses Register ${dn}`)
 break
 
 //©from: dennis
