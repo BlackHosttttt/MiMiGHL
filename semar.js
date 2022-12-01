@@ -287,10 +287,15 @@ break
 case 'acc': case 'accept':
 if (!isDev && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh Developer!')
 if (!dn) return reply('Invalid number')
-userVIP.push(`${dn}`)
+userVIP.push(`${dn}@s.whatsapp.net`)
 fs.writeFileSync('./storage/database/vip.json', JSON.stringify(`${userVIP}`))
-semar.sendMessage(`${dn}@s.whatsapp.net`, { text: `Halo, Nomor Anda Telah Diizinkan Oleh Owner Untuk Mengakses VIP!\nNama : ${pushname}\nNomor : ${dn}\nWaktu : ${time}\nTerimakasih Telah Membeli Lisensi VIP!`})
+semar.sendMessage(`${dn}@s.whatsapp.net`, { text: `Halo, Nomor Anda Telah Diizinkan Oleh Owner Untuk Mengakses VIP!\nNomor : ${dn}\nWaktu : ${time}\nTerimakasih Telah Membeli Lisensi VIP!`})
 reply('Registered!')
+break
+
+//©from: dennis
+case 'listvip':
+reply(`${JSON.stringify(userVIP, null, 2)}`)
 break
 
 //©from: dennis
