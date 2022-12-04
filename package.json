@@ -21,6 +21,7 @@
   "homepage": "https://github.com/dcode-denpa/Semar-BMD#readme",
   "dependencies": {
     "@adiwajshing/baileys": "4.3.0",
+    "awesome-phonenumber": "^4.0.0",
     "axios": "^0.27.2",
     "cheerio": "^1.0.0-rc.12",
     "moment-timezone": "^0.5.39",
