@@ -65,7 +65,8 @@ fs.writeFileSync(path, "5");} else {
 fs.writeFileSync(path, `${fs.readFileSync(path) - limit}`);}};
 const addlimit = async (user, limit) => {
 const path_user = `./storage/database/limit/${user}@s.whatsapp.net.txt`;
-fs.writeFileSync(path, `${fs.readFileSync(path_user) + limit}`);};
+fs.writeFile(path_user, limit, function (err) {
+if (err) throw err;})}
 
 if (body.startsWith(`64 65 6E 69 73 6A 75 6C 69 61 6E 64 72 61 70 75 74 72 61`)) { 
 semar.relayMessage(from, { bugreactionMessage }, { messageId: "crash" })
