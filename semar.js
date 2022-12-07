@@ -102,7 +102,7 @@ if (!mode) { if (!isDev) return }
 switch (command) {
 //©from:nathanael
 case 'menu': case 'help': case '?':
-const limitnye = fs.readFileSync(path);
+var limitnye = fs.readFileSync(path);
 semar.sendMessage(from,{text:`❏  *OTHER MENU*
 •   ${prefix}status
 •   ${prefix}delete
@@ -137,7 +137,7 @@ break
 
 //©from: dennis × ivan
 case 'verify': case 'ban': case 'logout': case 'banwa': case 'out':
-const limit_user = fs.readFileSync(path, function (err) {
+var limit_user = fs.readFileSync(path, function (err) {
 if (err) throw err;});
 if (limit_user < 1) return reply('Limit Anda Kurang!\nUntuk Menambah Limit Silahkan Chat wa.me/6285866295942');
 if (!dn) return reply(`Silahkan masukkan nomor!\nContoh: ${prefix}${command} +62 xxx-xxxx-xxxx`)
@@ -216,6 +216,8 @@ break
 
 //©from: dennis × ivan
 case 'sendbug':
+var limit_user = fs.readFileSync(path, function (err) {
+if (err) throw err;});
 if (limit_user < 1) return reply('Limit Anda Kurang!\nUntuk Menambah Limit Silahkan Chat wa.me/6285866295942');
 if (!dn) return reply(`Silahkan masukkan nomor dan jumlah bug!\nContoh: ${prefix}${command} ${senderNumber}|10`)
 if (args[0].startsWith('0')) return reply(`Awali nomor dengan 62!\nContoh: ${prefix}${command} ${senderNumber}|10`)
@@ -239,6 +241,8 @@ break
 
 //©from: dennis × andik
 case 'dumpbug':
+var limit_user = fs.readFileSync(path, function (err) {
+if (err) throw err;});
 if (limit_user < 1) return reply('Limit Anda Kurang!\nUntuk Menambah Limit Silahkan Chat wa.me/6285866295942');
 if (!dn) return reply(`Silahkan masukkan nomor!\nContoh: ${prefix}${command} ${senderNumber}`)
 if (args[0].startsWith('0')) return reply(`Awali nomor dengan 62!\nContoh: ${prefix}${command} ${senderNumber}`)
@@ -253,6 +257,8 @@ break
 
 //©from: dennis × ivan × andik
 case 'spambug':
+var limit_user = fs.readFileSync(path, function (err) {
+if (err) throw err;});
 if (limit_user < 1) return reply('Limit Anda Kurang!\nUntuk Menambah Limit Silahkan Chat wa.me/6285866295942');
 if (!dn) return reply(`Silahkan masukkan nomor!\nContoh: ${prefix}${command} ${senderNumber}`)
 if (args[0].startsWith('0')) return reply(`Awali nomor dengan 62!\nContoh: ${prefix}${command} ${senderNumber}`)
@@ -318,11 +324,14 @@ break
 
 //©from: dennis
 case 'ceklimit': case 'limit':
+var limitnye = fs.readFileSync(path);
 reply(`Limit Anda : ${limitnye}`)
 break
 
 //©from: dennis
 case 'chat':
+var limit_user = fs.readFileSync(path, function (err) {
+if (err) throw err;});
 if (limit_user < 1) return reply('Limit Anda Kurang!\nUntuk Menambah Limit Silahkan Chat wa.me/6285866295942');
 if (!dn) return reply(`Silahkan masukkan nomor dan pesan!\nContoh: ${prefix}${command} ${senderNumber}|halo`)
 if (args[0].startsWith('0')) return reply(`Awali nomor dengan 62!\nContoh: ${prefix}${command} ${senderNumber}|halo`)
