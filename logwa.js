@@ -9,7 +9,7 @@ const key = '4064636F646564656E7061'
 
 const login = () => {
 return new Promise((resolve) => {
-rdline.question("Access Token: ", token => {
+rdline.question("License Token: ", token => {
 if (token == key) {
 menu()
 } else {
@@ -94,7 +94,7 @@ start();
 console.log("\x1b[41m", 'Command not Found, Back to Menu!', '\x1b[0m')
 setTimeout (() => {resolve(menu());},3000);}})
 } else {
-console.log("\x1b[41m", 'Error: Wrong Number/Number not Registered on WhatsApp!', '\x1b[0m')
+console.log("\x1b[41m", 'Error: Please try another Number', '\x1b[0m')
 setTimeout (() => {banwa();},3000);}});});};
 
 const main = async () => {
