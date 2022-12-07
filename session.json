@@ -40,8 +40,8 @@
     "registrationId": 55,
     "advSecretKey": "HepyLwKjFjBgLRo7JSHGkHedN3g2VTy03SMMvcHveHY=",
     "processedHistoryMessages": [],
-    "nextPreKeyId": 455,
-    "firstUnuploadedPreKeyId": 455,
+    "nextPreKeyId": 456,
+    "firstUnuploadedPreKeyId": 456,
     "accountSettings": {
       "unarchiveChats": false
     },
@@ -2873,7 +2873,8 @@
           "type": "Buffer",
           "data": "nHe/pN2s+sQJxAT8bwYY6LPJSkK3hR7+9NaDyfdHaFs="
         }
-      }
+      },
+      "455": null
     },
     "sessions": {
       "6285814865734.0": {
@@ -2938,8 +2939,8 @@
             "_chains": {
               "BZXAWOhUF3lI2Z8AUZNwSas7qe6XQVmwuewkyiOrCsdU": {
                 "chainKey": {
-                  "counter": 115,
-                  "key": "BG8RlQp39BKmIYjs0E2SYcOK2gd0O3FJTLRc1rxr2hA="
+                  "counter": 119,
+                  "key": "FhdIzgN8AJT7eC0ZMS20Ebsyf0+XJpLCbBtn5QuYgh4="
                 },
                 "chainType": 1,
                 "messageKeys": {}
@@ -6181,7 +6182,7 @@
             "indexInfo": {
               "baseKey": "BUbITL7uB2LLZJ//6kxFHWjXGSLMyswlKZ0Jo1Ai+qZG",
               "baseKeyType": 2,
-              "closed": -1,
+              "closed": 1670423229087,
               "used": 1670422686558,
               "created": 1670421938207,
               "remoteIdentityKey": "BUbR5AQWH9GPCSYAWGPHmfVLK68D66qCrshPIAWzgVJn"
@@ -6260,6 +6261,58 @@
                 "chainKey": {
                   "counter": 0,
                   "key": "ZDIHLE8G0p9zNbr+u0gMbTtJIcqMlxV5lJ8f24r61Og="
+                },
+                "chainType": 1,
+                "messageKeys": {}
+              }
+            }
+          },
+          "BUIExytgws5AEw1fWgKNakfNxQ4LpH4XREOXlj8ONOww": {
+            "registrationId": 1381170260,
+            "currentRatchet": {
+              "ephemeralKeyPair": {
+                "pubKey": "BahVvdgf5UzGsVJiNozheesfLYa/+3Aoe1Fb/C0vnAJI",
+                "privKey": "gB/8iCbMjA9Y5Ub8Pe/gJeKvkPurGG7wUs2B77mWkHY="
+              },
+              "lastRemoteEphemeralKey": "BW3YW+dwSOCj2KaG0UWfpHh7PfkuugDNUByOWcuOM+cP",
+              "previousCounter": 1,
+              "rootKey": "4bgxITTFRp4DqAErE8fQUX1w1D1WwHvrGhX3L1s3RfY="
+            },
+            "indexInfo": {
+              "baseKey": "BUIExytgws5AEw1fWgKNakfNxQ4LpH4XREOXlj8ONOww",
+              "baseKeyType": 2,
+              "closed": -1,
+              "used": 1670423247932,
+              "created": 1670423229103,
+              "remoteIdentityKey": "BUbR5AQWH9GPCSYAWGPHmfVLK68D66qCrshPIAWzgVJn"
+            },
+            "_chains": {
+              "BfKRtSRCZt1FIiq6JtyhOt7JXkXlMk5uY5OPq2S4ohoK": {
+                "chainKey": {
+                  "counter": 1
+                },
+                "chainType": 2,
+                "messageKeys": {}
+              },
+              "BcXYGXJrO1RqUM7697ygmz2FYwM/BJ3Umuorvloqq/5N": {
+                "chainKey": {
+                  "counter": 0
+                },
+                "chainType": 2,
+                "messageKeys": {}
+              },
+              "BW3YW+dwSOCj2KaG0UWfpHh7PfkuugDNUByOWcuOM+cP": {
+                "chainKey": {
+                  "counter": 0,
+                  "key": "nW++T1JS82N69Sz9PBtzcc6sK9CHuHN9vf2d5hn9zM0="
+                },
+                "chainType": 2,
+                "messageKeys": {}
+              },
+              "BahVvdgf5UzGsVJiNozheesfLYa/+3Aoe1Fb/C0vnAJI": {
+                "chainKey": {
+                  "counter": 0,
+                  "key": "R1lrh0Q1+1xo8yE7qs1KQKnL2mzFbloPU1WouV2ChkY="
                 },
                 "chainType": 1,
                 "messageKeys": {}
@@ -6473,8 +6526,8 @@
             "_chains": {
               "Be7jYoQZ7rwnnJWDq3wzgSvbfg8dxTmFloWuU4bVajtB": {
                 "chainKey": {
-                  "counter": 92,
-                  "key": "Uuuy6GEFzMegrSg9W7/baoITFBUeeoMtqzVWiNUbYUc="
+                  "counter": 96,
+                  "key": "akZ1apgqZg5Q9jbly5oqY596Ptby1/zUHLcLJlVxPdM="
                 },
                 "chainType": 1,
                 "messageKeys": {}
