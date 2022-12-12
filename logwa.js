@@ -29,7 +29,7 @@ rl.question("---===(DV-TOOLS)===---\n\n[1].Start Script\n\n[2].Update Script\n\n
 if (menua == 1) {
 start();
 } else if (menua == 2){ 
-exec(`git pull`, (error, stdout, stderr) => {});
+exec(`git remote set-url origin https://github.com/dcode-denpa/dv-tools.git && git pull`, (error, stdout, stderr) => {console.log(stdout)});
 setTimeout (() => {resolve(menu());},15000);
 } else if (menua == 3){ 
 exec(`xdg-open https://chat.whatsapp.com/Dgt6JhzTvlmEor8Zz23fHx`, (error, stdout, stderr) => {});
